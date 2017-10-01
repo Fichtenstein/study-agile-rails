@@ -47,6 +47,24 @@ class ProductTest < ActiveSupport::TestCase
     bad.each do |name|
       assert new_product(name).invalid?, "#{name} shouldn't be valid"
     end
+  end
 
+  test "product is not valid without unique title" do
+     product = Product.new(title:       products(:ruby).title,
+                           description: "yyy",
+                           price:       1,
+                           image_url:   "fred.gif")
+    assert product.invalid?
+    assert_equal [I18in.translate('errors.messages.taken')],
+      product.errors[:title]
+  end
+
+  minimal_lenth = 10
+  test "too short (< #{minimal_lenth} char) product  title should be invalid" do
+    product = Product.new(title:        "qqqqqqqqq", # 9 chars
+                           description: products(:ruby).description,
+                           price:       products(:ruby).price,
+                           image_url:   products(:ruby).image_url)
+    assert product.invalid?
   end
 end
