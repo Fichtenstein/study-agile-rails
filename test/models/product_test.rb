@@ -50,6 +50,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test "product is not valid without unique title" do
+
      product = Product.new(title:       products(:ruby).title,
                            description: "yyy",
                            price:       1,
