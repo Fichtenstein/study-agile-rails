@@ -15,7 +15,7 @@ class Product < ApplicationRecord
   def ensure_not_referenced_by_li
     unless line_items.empty?
       errors.add(:base, 'Line Items present')
-      thow :abort
+      throw :abort
     end
   end
 end

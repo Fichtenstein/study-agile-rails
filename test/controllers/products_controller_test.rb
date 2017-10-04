@@ -55,4 +55,21 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to products_url
   end
+
+  test "can't destroy product referenced in any cart" do
+    # require 'pry'; binding.pry
+    assert_difference 'Product.count', 0 do
+      delete product_url(products(:two), only_path: true)
+    end
+
+    assert_redirected_to products_url(only_path: true)
+  end
+
+  test "should destroy products" do
+    assert_difference 'Product.count', -1 do
+      delete product_url(@product, only_path: true)
+    end
+
+    assert_redirected_to products_url(only_path: true)
+  end
 end
