@@ -53,7 +53,10 @@ group :development do
   gem 'rubocop', require: false
 end
 
-gem 'minitest-focus', group: :test
+group :development do
+  gem 'minitest-focus'
+  gem 'minitest-reporters'
+end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
